@@ -1,0 +1,157 @@
+#2. Perform the following operations using Python on the Air quality and Heart Diseases data sets
+a. Data cleaning
+b. Data integration
+c. Data transformation
+d. Error correcting
+e. Data model building
+
+import pandas as pd
+import numpy as np
+
+#Data cleaning
+df = pd.read_csv("/content/heartdisease.csv")
+df.head()
+df.isnull()
+df.isnull().any()
+df.isnull().sum()
+df.duplicated().sum()
+a = df.drop_duplicates()
+
+
+# Replace missing values in 'Ca' column with mean value
+mean_value = df['Ca'].mean()
+df['Ca'].fillna(value=mean_value, inplace=True)
+df.isna().sum()
+
+# Replace missing values in 'Thal' column with most common value
+most_common_value = df['Thal'].mode()[0]
+df['Thal'].fillna(most_common_value, inplace=True)
+df.isna().sum()
+
+
+#Data integration
+df2 = df[['Age', 'Sex', 'ChestPain']].loc[0:10]
+df3 = df[['Age', 'Sex', 'ChestPain']].loc[11:20]
+m_df = pd.concat([df2, df3])
+m_df
+
+
+#Data transformation
+
+# Transform 'ChestPain' column values
+df['ChestPain'].unique()
+df['ChestPain'] = df['ChestPain'].replace('typical', 0)
+df['ChestPain'] = df['ChestPain'].replace('asymptomatic', 1)
+df['ChestPain'] = df['ChestPain'].replace('nonanginal', 2)
+df['ChestPain'] = df['ChestPain'].replace('nontypical', 3)
+
+# Transform 'Sex' column values
+df['Sex'] = df['Sex'].replace(1, 'M')
+df['Sex'] = df['Sex'].replace(0, 'F')
+
+# Transform 'AHD' column values
+df['AHD'] = df['AHD'].replace('Yes', 1)
+df['AHD'] = df['AHD'].replace('No', 0)
+
+# Transform 'Chol' column values
+for i in range(len(df["Chol"])):
+  if i > 200:
+    df['Chol'] = df['Chol'].replace(i, "high")
+  else:
+    df['Chol'] = df['Chol'].replace(i, "low")
+
+# Transform 'Oldpeak' column values
+df["Oldpeak"] = df["Oldpeak"] * df["Oldpeak"] * df["Oldpeak"]
+df
+
+
+
+
+#Data correction
+df1 = pd.read_csv("/content/heartdisease.csv")
+df1['Ca'].unique()
+df1['Thal'].unique()
+
+# Fill missing values with mode for each column
+df1 = df1.fillna(df.mode().iloc[0])
+df1['Ca'].unique()
+df1['Thal'].unique()
+
+# Replace '?' values in the 'Ca' column with mode value
+df.loc[df['Ca'] == "?", 'Ca'] = df['Ca'].mode()
+df = df.fillna(df.mode().iloc[0])
+df["Ca"].unique()
+
+
+#  Data model building
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split
+from sklearn import metrics
+
+feature_cols = ['Age', 'ChestPain', 'RestBP', 'Fbs', 'RestECG', 'MaxHR', 'Slope']
+X = df[feature_cols]
+y = df.AHD
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=1)
+clf = DecisionTreeClassifier()
+clf = clf.fit(X_train, y_train)
+y_pred = clf.predict(X_test)
+
+# Evaluate the model
+print("Accuracy:", metrics.accuracy_score(y_test, y_pred))
+print("Recall:", metrics.recall_score(y_test, y_pred))
+print("F1 score:", metrics.f1_score(y_test, y_pred))
+print("Precision:", metrics.precision_score(y_test, y_pred))
+
+
+
+
+
+_________________________________________________________________________________________
+
+on Air Quality dataset :
+_________________________________________________________________________________________
+
+import pandas as pd
+import numpy as np
+df=pd.read_csv(r"C:\Users\AirQuality.csv",sep=";")
+df.head()
+df.isnull()
+
+
+#data cleaning
+df=df.dropna(axis=0,how='all')#data cleaning
+df=df.dropna(axis=0,how='all')
+df=df.dropna(axis=1,how='all')
+df.shape
+df.isnull().sum()
+df=df.loc[:, "CO(GT)"].astype(str)
+
+# #error correction
+# df["CO(GT)"]=df["CO(GT)"].str.replace(',','.').astype(float)
+
+
+#Correlation
+correlation = df["PT08.S1(CO)"].corr(df["PT08.S4(NO2)"])
+print("Correlation:", correlation)
+
+
+#model Building
+X = df[["PT08.S1(CO)"]]  # Feature matrix
+y = df["PT08.S4(NO2)"]   # Target variable
+
+from sklearn.model_selection import train_test_split
+X_tr,X_te,Y_tr,Y_te=train_test_split(X,y,test_size=0.3,random_state=1)
+
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score
+model = LinearRegression()
+model.fit(X_tr, Y_tr)
+
+y_pred = model.predict(X_te)
+model.score(X_te,Y_te)
+
+mse = mean_squared_error(Y_te, y_pred)
+r2 = r2_score(Y_te, y_pred)
+print("Mean Squared Error (MSE):", mse)
+print("R-squared (R2) Score:", r2)

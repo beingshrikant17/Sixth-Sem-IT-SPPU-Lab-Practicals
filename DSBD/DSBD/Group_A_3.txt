@@ -1,0 +1,148 @@
+3. Write an application using HiveQL for flight information system which will include
+	a. Creating,Dropping, and altering Database tables.
+	b. Creating an external Hive table.
+	c. Load table with data, insert new values and field in the table, Join tables with Hive
+	d. Create index on Flight Information Table
+	e. Find the average departure delay per day in 2008.
+
+# 1) Switch to 'hduser' user
+sudo su hduser
+
+# 2) Navigate to Hive bin directory
+cd /usr/local/hive/bin
+
+# 3) Start Hadoop Distributed File System (HDFS)
+start-dfs.sh
+
+# 4) Start YARN (Yet Another Resource Negotiator)
+start-yarn.sh
+
+# 5) Check running Java processes
+jps
+
+# 6) Start Hive
+./hive
+
+# Hive Commands
+# 7) Show available databases
+show databases;
+
+# 8) Create a new database
+create database db_name;
+
+# 9) Use the created database
+use db_name;
+
+# 10) Show tables in the current database
+show tables;
+
+# 11) Create a new table 'shricust'
+create table shricust(
+    cname string,
+    csal int
+) row format delimited fields terminated by ',' stored as textfile;
+
+# 12) Load data from a local file into the 'shricust' table
+load data local inpath '/home/student/student/Desktop/shricust.txt' into table shricust;
+
+# 13) Retrieve all records from the 'shricust' table
+select * from shricust;
+
+# 14) Describe the structure of the 'shricust' table
+desc shricust;
+
+# 15) Retrieve records from the 'shricust' table where csal = 645342
+select * from shricust where csal = 645342;
+
+# 16) Insert a new record into the 'shricust' table
+insert into table shricust values ('rakhi', 400000);
+
+# 17) Retrieve all records from the 'shricust' table
+select * from shricust;
+
+# 18) Alter the 'shricust' table and add a new column 'dept'
+ALTER TABLE shricust ADD COLUMNS (dept string);
+
+# 19) Retrieve all records from the 'shricust' table
+select * from shricust;
+
+# 20) Describe the structure of the 'shricust' table
+desc shricust;
+
+# 21) Create a new table 'table_name' with clustering and bucketing
+CREATE TABLE table_name(
+    id int,
+    name string
+)
+CLUSTERED BY (id) INTO 2 BUCKETS STORED AS ORC;
+
+# 22) Describe the structure of the 'table_name' table
+desc table_name;
+
+# 23) Drop the 'table_name' table
+drop table table_name;
+
+# 24) Drop the 'shricust' table
+drop table shricust;
+
+# 25) Show available tables
+show tables;
+
+# Flight Information System Queries
+# 1) Retrieve all records from the 'flightinfo' table
+select * from flightinfo;
+
+# 2) Load data from a local file into the 'flightinfo' table
+load data local inpath '/home/student/student/Desktop/finfo.txt' into table flightinfo;
+
+# 3) Retrieve all records from the 'flightinfo' table
+select * from flightinfo;
+
+# 4) Describe the structure of the 'flightinfo' table
+desc flightinfo;
+
+# 5) Retrieve records from the 'flightinfo' table where dept = 65000
+select * from flightinfo where dept = 65000;
+
+# 6) Load data from a local file into the 'schedule' table
+load data local inpath '/home/student/student/Desktop/schedule.txt' into table schedule;
+
+# 7) Retrieve all records from the 'schedule' table
+SELECT * FROM SCHEDULE;
+
+# 8) Retrieve the number of flights for each 'sname' in 'flightinfo' and 'schedule' tables
+SELECT s.sname, COUNT(*) AS num_flights FROM flightinfo f JOIN schedule s ON f.scheduleid = s.scheduleid GROUP BY s.sname;
+
+# 9) Retrieve specific columns from 'flightinfo' and 'schedule' tables by joining them on 'scheduleid'
+select fname, fnumber, dcity, decity, dtime, dept from flightinfo f join schedule s on f.scheduleid = s.scheduleid;
+
+# 10) Create an index on the 'schedule' table
+CREATE INDEX idx ON TABLE schedule(dat) AS 'org.apache.hadoop.hive.ql.index.compact.CompactIndexHandler' WITH DEFERRED REBUILD;
+
+# 11) Retrieve the count of 'dat' from the 'schedule' table
+select count(dat), dat from schedule group by dat;
+
+# 12) Show the formatted index information on the 'flightinfo' table
+show formatted index on flightinfo;
+
+# 13) Calculate the average 'dtime' from the 'flightinfo' table
+select avg(dtime) from flightinfo;
+
+# 14) Calculate the average 'dtime' from the 'flightinfo' table
+select avg(dtime) from flightinfo;
+
+# Cleanup
+# 15) Drop the 'flightinfo' table
+drop table flightinfo;
+
+# 16) Drop the 'schedule' table
+drop table schedule;
+
+# 17) Show available tables
+show tables;
+
+# 18) create external table
+create external table temp(id int,name string)
+row format delimited 
+fields terminated by ',' 
+location '/hivedata'

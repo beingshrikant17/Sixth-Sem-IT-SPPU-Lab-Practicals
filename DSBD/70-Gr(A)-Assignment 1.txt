@@ -1,0 +1,142 @@
+Name:-Vaishnavi Sonawane
+Roll No.:- 70
+Class:- TE IT
+Subject:- DSBDA Lab
+--------------------------------------------------------------------------------------------
+Group A:- Assignments based on Hadoop
+Assignment 1:- Single node/Multiple node Hadoop Installation
+--------------------------------------------------------------------------------------------
+
+
+student@student-HP-Pro-3330-MT:~$ sudo su hduser
+hduser@student-HP-Pro-3330-MT:/home/student$ sudo su hduser
+[sudo] password for hduser: 
+
+
+hduser@student-HP-Pro-3330-MT:/home/student$ start-dfs.sh
+23/04/27 13:50:24 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Starting namenodes on [localhost]
+localhost: starting namenode, logging to /usr/local/hadoop/logs/hadoop-hduser-namenode-student-HP-Pro-3330-MT.out
+localhost: OpenJDK Server VM warning: You have loaded library /usr/local/hadoop/lib/native/libhadoop.so.1.0.0 which might have disabled stack guard. The VM will try to fix the stack guard now.
+localhost: It's highly recommended that you fix the library with 'execstack -c <libfile>', or link it with '-z noexecstack'.
+localhost: starting datanode, logging to /usr/local/hadoop/logs/hadoop-hduser-datanode-student-HP-Pro-3330-MT.out
+localhost: OpenJDK Server VM warning: You have loaded library /usr/local/hadoop/lib/native/libhadoop.so.1.0.0 which might have disabled stack guard. The VM will try to fix the stack guard now.
+localhost: It's highly recommended that you fix the library with 'execstack -c <libfile>', or link it with '-z noexecstack'.
+Starting secondary namenodes [0.0.0.0]
+0.0.0.0: starting secondarynamenode, logging to /usr/local/hadoop/logs/hadoop-hduser-secondarynamenode-student-HP-Pro-3330-MT.out
+0.0.0.0: OpenJDK Server VM warning: You have loaded library /usr/local/hadoop/lib/native/libhadoop.so.1.0.0 which might have disabled stack guard. The VM will try to fix the stack guard now.
+0.0.0.0: It's highly recommended that you fix the library with 'execstack -c <libfile>', or link it with '-z noexecstack'.
+23/04/27 13:50:40 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+
+
+hduser@student-HP-Pro-3330-MT:/home/student$ start-yarn.sh
+starting yarn daemons
+starting resourcemanager, logging to /usr/local/hadoop/logs/yarn-hduser-resourcemanager-student-HP-Pro-3330-MT.out
+localhost: starting nodemanager, logging to /usr/local/hadoop/logs/yarn-hduser-nodemanager-student-HP-Pro-3330-MT.out
+localhost: OpenJDK Server VM warning: You have loaded library /usr/local/hadoop/lib/native/libhadoop.so.1.0.0 which might have disabled stack guard. The VM will try to fix the stack guard now.
+localhost: It's highly recommended that you fix the library with 'execstack -c <libfile>', or link it with '-z noexecstack'.
+
+
+hduser@student-HP-Pro-3330-MT:/home/student$ jps
+12748 Jps
+11897 DataNode
+12275 ResourceManager
+12106 SecondaryNameNode
+11727 NameNode
+12415 NodeManager
+
+
+hduser@student-HP-Pro-3330-MT:/home/student$ cd /usr/local/hadoop
+
+
+hduser@student-HP-Pro-3330-MT:/usr/local/hadoop$ bin/hdfs dfs -mkdir /user77/
+23/04/27 13:51:22 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+mkdir: `/user77': File exists
+hduser@student-HP-Pro-3330-MT:/usr/local/hadoop$ bin/hdfs dfs -mkdir /user31/
+23/04/27 13:51:36 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+
+
+hduser@student-HP-Pro-3330-MT:/usr/local/hadoop$ bin/hdfs dfs -put /home/student/Desktop/data /user31/input211
+23/04/27 13:52:07 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+
+
+
+hduser@student-HP-Pro-3330-MT:/usr/local/hadoop$ bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.9.0.jar wordcount /user31/input211 output222
+23/04/27 13:52:37 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+23/04/27 13:52:38 INFO client.RMProxy: Connecting to ResourceManager at /0.0.0.0:8032
+23/04/27 13:52:38 INFO input.FileInputFormat: Total input files to process : 2
+23/04/27 13:52:38 INFO mapreduce.JobSubmitter: number of splits:2
+23/04/27 13:52:39 INFO Configuration.deprecation: yarn.resourcemanager.system-metrics-publisher.enabled is deprecated. Instead, use yarn.system-metrics-publisher.enabled
+23/04/27 13:52:40 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1682583646849_0002
+23/04/27 13:52:40 INFO impl.YarnClientImpl: Submitted application application_1682583646849_0002
+23/04/27 13:52:40 INFO mapreduce.Job: The url to track the job: http://student-HP-Pro-3330-MT:8088/proxy/application_1682583646849_0002/
+23/04/27 13:52:40 INFO mapreduce.Job: Running job: job_1682583646849_0002
+23/04/27 13:52:54 INFO mapreduce.Job: Job job_1682583646849_0002 running in uber mode : false
+23/04/27 13:52:54 INFO mapreduce.Job:  map 0% reduce 0%
+23/04/27 13:53:17 INFO mapreduce.Job:  map 100% reduce 0%
+23/04/27 13:53:28 INFO mapreduce.Job:  map 100% reduce 100%
+23/04/27 13:53:29 INFO mapreduce.Job: Job job_1682583646849_0002 completed successfully
+23/04/27 13:53:29 INFO mapreduce.Job: Counters: 49
+	File System Counters
+		FILE: Number of bytes read=106
+		FILE: Number of bytes written=606187
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+		HDFS: Number of bytes read=325
+		HDFS: Number of bytes written=34
+		HDFS: Number of read operations=9
+		HDFS: Number of large read operations=0
+		HDFS: Number of write operations=2
+	Job Counters 
+		Launched map tasks=2
+		Launched reduce tasks=1
+		Data-local map tasks=2
+		Total time spent by all maps in occupied slots (ms)=40050
+		Total time spent by all reduces in occupied slots (ms)=9600
+		Total time spent by all map tasks (ms)=40050
+		Total time spent by all reduce tasks (ms)=9600
+		Total vcore-milliseconds taken by all map tasks=40050
+		Total vcore-milliseconds taken by all reduce tasks=9600
+		Total megabyte-milliseconds taken by all map tasks=41011200
+		Total megabyte-milliseconds taken by all reduce tasks=9830400
+	Map-Reduce Framework
+		Map input records=16
+		Map output records=16
+		Map output bytes=162
+		Map output materialized bytes=112
+		Input split bytes=227
+		Combine input records=16
+		Combine output records=8
+		Reduce input groups=4
+		Reduce shuffle bytes=112
+		Reduce input records=8
+		Reduce output records=4
+		Spilled Records=16
+		Shuffled Maps =2
+		Failed Shuffles=0
+		Merged Map outputs=2
+		GC time elapsed (ms)=113
+		CPU time spent (ms)=1700
+		Physical memory (bytes) snapshot=531578880
+		Virtual memory (bytes) snapshot=1504354304
+		Total committed heap usage (bytes)=374079488
+	Shuffle Errors
+		BAD_ID=0
+		CONNECTION=0
+		IO_ERROR=0
+		WRONG_LENGTH=0
+		WRONG_MAP=0
+		WRONG_REDUCE=0
+	File Input Format Counters 
+		Bytes Read=98
+	File Output Format Counters 
+		Bytes Written=34
+
+
+hduser@student-HP-Pro-3330-MT:/usr/local/hadoop$ bin/hdfs dfs -cat output222/*23/04/27 13:54:04 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+abhishek	2
+hello	6
+it	4
+kkwieer	4
+hduser@student-HP-Pro-3330-MT:/usr/local/hadoop$ 

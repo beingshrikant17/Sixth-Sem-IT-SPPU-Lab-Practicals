@@ -1,0 +1,97 @@
+<html>
+
+<head>
+    <title>
+        Registratin form
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="col-sm-7" style="border: 1px solid gray;">
+            <h2>Registration  Form</h2>
+            <form action="#">
+                <div class="form-group" >
+                    <label for="name">Name:</label>
+                    <input type="text" class="form-control" id="name" placeholder="Enter name" name="email"style="background-color: #ffdc5c">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter email" name="email"style="background-color: #ffdc5c">
+                </div>
+                <div class="form-group">
+                    <label for="contact">Contact:</label>
+                    <input type="text" class="form-control" id="contact" placeholder="Enter contact" name="contact"style="background-color: #ffdc5c">
+                </div>
+                <div class="form-group">
+                    <label for="pwd">Password:</label>
+                    <input type="password" class="form-control" id="psw" placeholder="Enter password" name="pwd"style="background-color: #ffdc5c">
+                </div>
+
+                <button type="button" onclick="saveData()" id="save_btn" class="btn btn-default" >Submit</button>
+            </form>
+        </div>
+        <div class="col-sm-7" style="border: 1px solid gray;">
+            <h2 style="text-align: center;">Users Table</h2>
+            <div class="row">
+                <div class="col-sm-3" style="background-color: #ffdc5c;padding: 10px;">Name</div>
+                <div class="col-sm-3" style="background-color: #ffdc5c;padding: 10px;">Email</div>
+                <div class="col-sm-3" style="background-color: #ffdc5c;padding: 10px;">Contact</div>
+                <div class="col-sm-3" style="background-color: #ffdc5c;padding: 10px;">Password</div>
+
+            </div>
+            <div id="showUsers"></div>
+        </div>
+    </div>
+
+</body>
+<script>
+    showData();
+    function saveData() {
+        let name,contact, email, psw;
+        name = document.getElementById("name").value;
+        email = document.getElementById("email").value;
+        contact = document.getElementById("contact").value;
+        psw = document.getElementById("psw").value;
+
+        let user_records = new Array();
+        user_records = JSON.parse(localStorage.getItem("users")) ? JSON.parse(localStorage.getItem("users")) : []
+        if (user_records.some((v) => { return v.email == email })) {
+            alert("duplicate data");
+        }
+        else {
+            user_records.push({
+                "name": name,
+                "email": email,
+                "contact":contact,
+                "psw": psw
+            })
+            localStorage.setItem("users", JSON.stringify(user_records));
+        }
+        showData();
+    }
+
+    function showData() {
+        document.getElementById("showUsers").innerHTML = "";
+        let user_records = new Array();
+        user_records = JSON.parse(localStorage.getItem("users")) ? JSON.parse(localStorage.getItem("users")) : []
+        if (user_records) {
+            for (let i = 0; i < user_records.length; i++) {
+                let addDiv = document.createElement('div');
+                addDiv.className = "row";
+                addDiv.innerHTML = '  <div class="col-sm-3" style="padding: 10px;">' + user_records[i].name + '</div><div class="col-sm-3" style="padding: 10px;">' + user_records[i].email + '</div><div class="col-sm-3" style="padding: 10px;">' + user_records[i].contact + '</div><div class="col-sm-3" style="padding: 10px;">' + user_records[i].psw + '</div>';
+                document.getElementById("showUsers").appendChild(addDiv);
+
+            }
+        }
+    }
+</script>
+
+</html>

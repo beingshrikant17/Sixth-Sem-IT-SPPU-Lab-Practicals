@@ -1,0 +1,24 @@
+vagrant@vagrant:~$ ls
+vagrant@vagrant:~$ touch Shri.txt
+vagrant@vagrant:~$ cat Shri.txt
+vagrant@vagrant:~$ nano Shri.txt
+Hello All 
+this is Shrikant 
+from nashik
+
+vagrant@vagrant:~$ cat Shri.txt
+Hello All 
+this is Shrikant 
+from nashik
+vagrant@vagrant:~$ scp Shri.txt vagrant@10.0.2.16:home/vegrant
+The authenticity of host '10.0.2.16 (10.0.2.16)' can't be established.
+
+ECDSA key fingerprint is SHA256:cDqQ1xEeETP?fkQ7CGpZxgeabPuYXMItuBBkM/6+mM4. Are you sure you want to continue connecting (yes/no)? yes
+
+Warning: Permanently added '10.0.2.16' (ECDSA) to the list of knou hosts.
+
+vagrant@10.0.2.16's password:
+
+Shri.txt
+
+vagrant@vagrant:~$

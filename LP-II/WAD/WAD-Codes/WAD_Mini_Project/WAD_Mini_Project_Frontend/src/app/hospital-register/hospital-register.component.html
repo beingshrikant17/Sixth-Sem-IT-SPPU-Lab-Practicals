@@ -1,0 +1,33 @@
+<h1>Hospital Registration</h1>
+<h1>{{ message }}</h1>
+<form (submit)="submitForm(formData, $event)">
+  <div>
+    <label for="hospitalName">Hospital Name</label>
+    <input type="text" name="hospitalName" id="hospitalName" [(ngModel)]="formData.hospitalName" required>
+  </div>
+  <div>
+    <label for="doctorName">Doctor Name</label>
+    <input type="text" name="doctorName" id="doctorName" [(ngModel)]="formData.doctorName" required>
+  </div>
+  <div>
+    <label for="doctorQualification">Doctor Qualification</label>
+    <input type="text" name="doctorQualification" id="doctorQualification" [(ngModel)]="formData.doctorQualification" required>
+  </div>
+  <div>
+    <label for="hospitalAddress">Hospital Address</label>
+    <textarea name="hospitalAddress" id="hospitalAddress" [(ngModel)]="formData.hospitalAddress" required></textarea>
+  </div>
+  <div>
+    <label for="hospitalMobNo">Hospital Mobile Number</label>
+    <input type="tel" name="hospitalMobNo" id="hospitalMobNo" [(ngModel)]="formData.hospitalMobNo" required>
+  </div>
+  <div>
+    <label for="hospitalEmail">Hospital Email</label>
+    <input type="email" name="hospitalEmail" id="hospitalEmail" [(ngModel)]="formData.hospitalEmail" required>
+  </div>
+  <div>
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password" [(ngModel)]="formData.password" required>
+  </div>
+  <button type="submit">Register</button>
+</form>

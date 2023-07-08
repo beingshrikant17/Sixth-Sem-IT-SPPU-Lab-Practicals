@@ -1,0 +1,58 @@
+1)sudo su hduser
+#By combining sudo and su as sudo su, you are requesting to switch to 
+another user account while retaining the superuser privileges provided by sudo
+
+2)password:
+3)cd
+4)cd /usr/local/hadoop
+5)start-dfs.sh
+#starts HDFS daemons on the nodes of your Hadoop cluster. 
+ daemons include the NameNode, which manages 
+ the file system metadata,
+ and DataNodes, which store the actual data blocks
+
+6)start-yarn.sh
+# YARN is responsible for managing resources and scheduling applications in a Hadoop cluster
+daemons include the ResourceManager, which manages the allocation of cluster resources, 
+and NodeManagers, which manage resources on individual cluster nodes.
+
+7)jps
+#Java Process Status-is used to list the Java processes running on a machine.
+
+8)bin/hdfs dfs -mkdir /user100/
+#is used to create a directory named "user100" in HDFS
+
+9)bin/hdfs dfs -put /home/student/Desktop/data /user100/input
+# is used to copy files or directories from the local file system to HDFS
+
+10)bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.9.0.jar wordcount /user100/input output100
+#is used to execute a MapReduce job in Hadoop. It runs the "wordcount" example job provided by Hadoop
+
+11)bin/hdfs dfs -cat output100/*
+#The command will read and display the contents of each file in the output100 directory
+
+12)stop-all.sh
+#command is used in Hadoop installations to stop all Hadoop daemons running on a machine
+
+
+13) Error dfNameNode is in safe mode , unable to to make directory :hadoop dfsadmin -safemode leave
+
+
+
+
+Q)Tell some other example jobs that hadoop provide?
+some commonly used example jobs provided by Hadoop:
+
+WordCount: This is one of the most well-known and basic MapReduce examples. It counts the occurrences of each word in a given input text file or directory.
+
+PiEstimator: This example uses the Monte Carlo method to estimate the value of π (pi). It generates random points and calculates the ratio of points falling within a unit circle to estimate π.
+
+Sort: The Sort example demonstrates the sorting capabilities of Hadoop. It takes a text file as input and sorts the lines based on their contents.
+
+TeraSort: TeraSort is a benchmarking example that tests the sorting performance of Hadoop. It generates a large amount of random data and sorts it using the MapReduce framework.
+
+AggregateWordCount: This example extends the WordCount example by aggregating the word counts across multiple input files. It calculates the total count for each word across all input files.
+
+DistCp: DistCp stands for Distributed Copy. It is not a MapReduce job but a utility provided by Hadoop. DistCp is used to efficiently copy large amounts of data between Hadoop clusters or within a cluster.
+
+These are just a few examples of the many jobs and utilities available in Hadoop.

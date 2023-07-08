@@ -1,0 +1,9 @@
+vagrant@vagrant:~$  ls
+vagrant@vagrant:~$ ls
+Shri.txt
+vagrant@vagrant:~$
+Hello All 
+this is Shrikant 
+from nashik
+
+vagrant@vagrant:~$

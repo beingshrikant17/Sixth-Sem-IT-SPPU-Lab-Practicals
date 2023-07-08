@@ -1,0 +1,25 @@
+Goto Website : https://console.cloud.google.com/
+Select Project
+Create New Project : Name the Project 
+Click on : Activate CLoud Shell
+Commands : 1) gcloud projects list
+Now Navigate to API & Services -Enabled APIS & Services 
+Click button "+Enable APIS & Services"
+search for Api -app engine admin api
+select app engine admin api
+Click on Enable API button
+go back to console 
+COmmands: 
+1) gcloud config set project PROJECT_ID    -----> PROJECT_ID can get from using command "gcloud projects list" 
+2) gcloud app create
+3) Enter Region as 7
+4) git clone https://github.com/GoogleCloudPlatform/python-docs-samples
+5) cd python-docs-samples
+6) ls
+7) cd appengine
+8) ls
+9) cd standard_python3
+10) ls
+11) cd hello_world
+12) cat main.py
+13) python3 main.py

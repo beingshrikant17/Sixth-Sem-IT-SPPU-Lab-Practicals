@@ -1,0 +1,47 @@
+# Create a review scrapper for any ecommerce website to fetch real time comments, reviews,
+# ratings, comment tags, customer name using Python.
+
+1)  import requests
+2)  import bs4
+3)  request1=requests.get("https://www.flipkart.com/poco-c50-royal-blue-32-gb/p/itma43af9d14952e?pid=MOBGK8WZUTGDEZFA&lid=LSTMOBGK8WZUTGDEZFAWKBDLT&marketplace=FLIPKART&store=tyy%2F4io&spotlightTagId=FkPickId_tyy%2F4io&srno=b_1_1&otracker=browse&fm=organic&iid=035929f8-33a3-4c79-9b52-77b3df4fac70.MOBGK8WZUTGDEZFA.SEARCH&ppt=browse&ppn=browse&ssid=hnhabh5ei80000001685271187056")
+4)  soup=bs4.BeautifulSoup(request1.text)
+
+
+#comments, reviews 
+5)  reviews=soup.findAll("div",{"class":"t-ZTKy"})
+6)  for review in reviews:
+7)    print(review.get_text()+"\n\n")
+
+
+# ratings
+# overall
+8)  rating1=soup.find("div",{"class":"_2d4LTz"})
+9)  print("Rating of phone : "+rating1.get_text()+"\n\n")
+
+# individual
+10) ratings=soup.findAll("div",{"class":"_3LWZlK _1BLPMq"})
+11) print("First Page Ratings")
+12) for rating in ratings:
+  print(rating.get_text()+"\n\n")
+
+# tags
+13) tag=soup.find("div",{"class":"_1V_ZGU"})
+14) print("Tag of phone : "+tag.get_text()+"\n\n")
+
+
+#customer names
+15) cust_names=soup.findAll("p",{"class":"_2sc7ZR _2V5EHH"})
+16) for cust_name in cust_names:
+17)    print("Customer Names :"+cust_name.get_text()+"\n\n")
+
+
+# tabuate data
+
+18) data = [["1", "Review-1", 5, "Sumit Solanki" ],
+        [], 
+        ["2", "Review2", 4, "Soumyadeep Kundu" ],
+        [],]
+19)  col_names = ["Sr.No.", "Reviews/Comments", "Rating",  "Customer Name"]
+20)  from tabulate import tabulate
+21)  print(tabulate(data, headers=col_names))
+

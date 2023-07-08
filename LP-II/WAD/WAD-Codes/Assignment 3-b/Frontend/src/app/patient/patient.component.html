@@ -1,0 +1,44 @@
+<h1>Patient Login</h1>
+<form (submit)="submitForm(formData, $event)">
+  <div>
+    <label for="patientEmail">Patient Email:</label>
+    <input type="email" id="patientEmail" name="patientEmail" [(ngModel)]="formData.patientEmail" required>
+  </div>
+  <div>
+    <label for="patientMobileNo">Patient Mobile No:</label>
+    <input type="number" id="patientMobileNo" name="patientMobileNo" [(ngModel)]="formData.patientMobileNo" required>
+  </div>
+<button type="submit">Login</button>
+
+</form>
+<h1>{{ message }}</h1>
+<div class="container">
+  <h1>Prescription</h1>
+  <div class="row">
+    <div class="col">
+      <h2>Doctor</h2>
+      <p><strong>Doctor Name:</strong> {{ DoctorName }}</p>
+      <p><strong>Doctor Qualification:</strong> {{ DoctorQualification }}</p>
+    </div>
+    <div class="col">
+      <h2>Hospital</h2>
+      <p><strong>Hospital Name:</strong> {{ HospitalName }}</p>
+      <p><strong>Hospital Address:</strong> {{ HospitalAddress }}</p>
+      <p><strong>Hospital Contact:</strong> {{ HospitalMobNo }} | {{ HospitalEmail }}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <h2>Patient</h2>
+      <p><strong>Patient Name:</strong> {{ patientName }}</p>
+      <p><strong>Patient Date of Birth:</strong> {{ patientDOB }}</p>
+      <p><strong>Patient Gender:</strong> {{ patientGender }}</p>
+      <p><strong>Patient Age:</strong> {{ patientAge }}</p>
+      <p><strong>Patient Mobile No:</strong> {{ patientMobileNo }}</p>
+    </div>
+    <div class="col">
+      <h2>Prescription</h2>
+      <pre>{{ patientPrescription }}</pre>
+    </div>
+  </div>
+</div>

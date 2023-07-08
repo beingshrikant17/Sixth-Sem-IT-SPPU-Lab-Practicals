@@ -1,0 +1,43 @@
+#1. Perform the following operations using Python on the Facebook metrics data sets
+#a. Create data subsets
+#b. Merge Data
+#c. Sort Data
+#d. Transposing Data
+#e. Shape and reshape Data
+
+
+import pandas as pd
+import numpy as np
+df =pd.read_csv("/content/facebook.csv",sep=";")
+df.head()
+df.shape
+df.describe()
+
+1)  #subset creation
+df1=df[['Page total likes', 'Category', 'Post Month', 'Post Weekday']].loc [0:15]
+df2=df[['Page total likes', 'Category', 'Post Month', 'Post Weekday']].loc [16:30]
+df3=df[['Page total likes', 'Category', 'Post Month', 'Post Weekday']].loc [31:50]
+
+2)  #merging subsets
+m_df=pd.concat([df1,df2,df3])
+m_df
+
+3)  #merging data
+Me_df = pd.merge(df1, df2, on='Category')
+Me_df
+
+4)  #sorting values of data
+s_df=df.sort_values("Page total likes",ascending=False)
+s_df
+
+5)  #transposing
+tr_df=df.transpose()
+tr_df
+
+6)  #reshaping data with pivot table
+reshape_table=pd.pivot_table(df, index= ['Type', 'Category'], values='comment')
+reshape_table
+
+9)  #reshaping data with melt
+df4=pd.melt(df)
+df4

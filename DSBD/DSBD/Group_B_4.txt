@@ -1,0 +1,76 @@
+import pandas as pd
+import seaborn as sns
+df=pd.read_csv("/content/Iris.csv")
+df
+df['Species'].value_counts()
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+%matplotlib inline
+
+1)
+	sns.FacetGrid(df, hue='Species').map(plt.scatter, 'SepalLengthCm', 'SepalWidthCm').add_legend()
+
+2)
+	sns.boxplot(x="Species",y="SepalWidthCm",data=df)
+
+3)
+	sns.stripplot(x='Species',y='SepalLengthCm',data=df,linewidth=2)
+
+4)
+	sns.violinplot(x='Species',y='SepalLengthCm',data=df)
+
+5)
+	sns.pairplot(df,hue='Species')
+
+6)
+	x = df["Species"]
+	y = df["SepalLengthCm"]
+
+	x2 = df["Species"]
+	y2 = df["PetalLengthCm"]
+
+	plt.plot(x, y, label='First Line')
+	plt.plot(x2, y2, label='Second Line')
+	plt.legend()
+	plt.show()
+
+7)
+	x = df["Species"]
+	y = df["SepalLengthCm"]
+	plt.plot(x,y,'--')
+	plt.show()
+
+8)
+	x = df["Species"]
+	y = df["SepalWidthCm"]
+	plt.bar(x, y)
+	plt.title("Tips Dataset")
+	plt.show()
+
+9)
+	x = df["Species"]
+	y = df["SepalWidthCm"]
+	plt.bar(x, y, edgecolor='blue')
+	plt.title("Tips Dataset")
+	plt.show()
+
+10)
+	x = df["SepalWidthCm"]
+	plt.hist(x)
+	plt.title("Tips Dataset")
+	plt.show()
+
+11)
+	x = df["Species"]
+	y = df["SepalWidthCm"]
+	plt.scatter(x, y)
+	plt.title("SepalWidthCm")
+	plt.show()
+
+12)
+	cars = ['AUDI', 'BMW', 'FORD','TESLA', 'JAGUAR',]
+	data = [23, 10, 35, 15, 12]
+	plt.pie(data, labels=cars)
+	plt.title("Car data")
+	plt.show()

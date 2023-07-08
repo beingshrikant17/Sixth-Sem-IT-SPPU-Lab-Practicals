@@ -1,0 +1,53 @@
+<h1>Patient Register</h1>
+
+<form (ngSubmit)="submitForm(formData, $event)">
+    <div class="form-group">
+        <label for="doctorMail">Doctor Email</label>
+        <input type="text" class="form-control" id="doctorMail" name="doctorMail" [(ngModel)]="formData.doctorMail"
+            required>
+    </div>
+    <div class="form-group">
+        <label for="patientName">Patient Name</label>
+        <input type="text" class="form-control" id="patientName" name="patientName" [(ngModel)]="formData.patientName"
+            required>
+    </div>
+    <div class="form-group">
+        <label for="patientGender">Patient Gender</label>
+        <select class="form-control" id="patientGender" name="patientGender" [(ngModel)]="formData.patientGender"
+            required>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="patientEmail">Patient Email</label>
+        <input type="email" class="form-control" id="patientEmail" name="patientEmail"
+            [(ngModel)]="formData.patientEmail" required>
+    </div>
+    <div class="form-group">
+        <label for="patientMobileNo">Patient Mobile No</label>
+        <input type="text" class="form-control" id="patientMobileNo" name="patientMobileNo"
+            [(ngModel)]="formData.patientMobileNo" required>
+    </div>
+    <div class="form-group">
+        <label for="patientAge">Patient Age</label>
+        <input type="number" class="form-control" id="patientAge" name="patientAge" [(ngModel)]="formData.patientAge"
+            required>
+    </div>
+    <div class="form-group">
+        <label for="patientDOB">Patient Date of Birth</label>
+        <input type="date" class="form-control" id="patientDOB" name="patientDOB" [(ngModel)]="formData.patientDOB"
+            required>
+    </div>
+    <div class="form-group">
+        <label for="patientPrescription">Patient Prescription</label>
+        <textarea class="form-control" id="patientPrescription" name="patientPrescription"
+            [(ngModel)]="formData.patientPrescription" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+
+
+<h2>{{ message }}</h2>
+<h2>{{data1}}</h2>

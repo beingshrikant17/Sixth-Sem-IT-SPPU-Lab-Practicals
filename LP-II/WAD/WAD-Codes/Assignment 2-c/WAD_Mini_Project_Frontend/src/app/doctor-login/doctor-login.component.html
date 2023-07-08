@@ -1,0 +1,17 @@
+<h1>Doctor Login</h1>
+
+<div *ngIf="message">
+  <p>{{ message }}</p>
+</div> 
+
+<form (submit)="submitForm(formData, $event)">
+  <div>
+    <label for="doctorEmail">Email:</label>
+    <input type="email" id="doctorEmail" name="doctorEmail" [(ngModel)]="formData.doctorEmail" required>
+  </div>
+  <div>
+    <label for="doctorPassword">Password:</label>
+    <input type="password" id="doctorPassword" name="doctorPassword" [(ngModel)]="formData.doctorPassword" required>
+  </div>
+  <button type="submit">Login</button>
+</form>

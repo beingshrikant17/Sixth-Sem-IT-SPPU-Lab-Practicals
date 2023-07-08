@@ -1,0 +1,453 @@
+Name:- Sakshi Sonawane
+Roll No.:- 69
+Class:- TE I
+Subject:- DSBDA Lab
+--------------------------------------------------------------------------------------------
+Group A:- Assignments based on Hadoop
+Assignment 3:-
+Write an application using HiveQL for flight information system which will include
+a. Creating, Dropping, and altering Database tables.
+b. Creating an external Hive table.
+c. Load table with data, insert new values and field in the table, Join tables with Hive
+d. Create index on Flight Information Table
+e. Find the average departure delay per day in 2008.
+--------------------------------------------------------------------------------------------
+student@student-HP-Pro-3330-MT:~$ sudo su hduser
+[sudo] password for student: 
+hduser@student-HP-Pro-3330-MT:/home/student$ cd /usr/local/hive/bin
+hduser@student-HP-Pro-3330-MT:/usr/local/hive/bin$ ./hive
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/usr/local/hive/lib/log4j-slf4j-impl-2.4.1.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/usr/local/hadoop/share/hadoop/common/lib/slf4j-log4j12-1.7.25.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
+
+Logging initialized using configuration in jar:file:/usr/local/hive/lib/hive-common-2.1.1.jar!/hive-log4j2.properties Async: true
+Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. tez, spark) or using Hive 1.X releases.
+hive> show databases;
+OK
+db1
+default
+Sakshi
+Time taken: 0.814 seconds, Fetched: 3 row(s)
+hive> show tables;
+OK
+cust
+customer
+Time taken: 0.063 seconds, Fetched: 2 row(s)
+hive> create database Sakshidb;
+OK
+Time taken: 1.274 seconds
+hive> create table Sakshicust(cname string, csal int) row format delimited fields terminated by ',' stored as textfile;
+OK
+Time taken: 0.81 seconds
+hive> show tables;
+OK
+cust
+customer
+Sakshicust
+Time taken: 0.05 seconds, Fetched: 3 row(s)
+hive> load data local inpath '/home/student/student/Desktop/Sakshicust.txt' into table Sakshicust;
+Loading data to table default.Sakshicust
+OK
+Time taken: 3.342 seconds
+hive> select *from Sakshicust;
+OK
+Hello	NULL
+Sakshi	NULL
+Hello world	NULL
+	NULL
+Time taken: 1.695 seconds, Fetched: 4 row(s)
+hive> desc Sakshicust;
+OK
+cname               	string              	                    
+csal                	int                 	                    
+Time taken: 0.05 seconds, Fetched: 2 row(s)
+hive> load data local inpath '/home/student/student/Desktop/Sakshicust.txt' into table Sakshicust;
+Loading data to table default.Sakshicust
+OK
+Time taken: 0.367 seconds
+
+hive> hduser@student-HP-Pro-3330-MT:/usr/local/hive/bin$ ./hive
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/usr/local/hive/lib/log4j-slf4j-impl-2.4.1.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/usr/local/hadoop/share/hadoop/common/lib/slf4j-log4j12-1.7.25.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
+
+Logging initialized using configuration in jar:file:/usr/local/hive/lib/hive-common-2.1.1.jar!/hive-log4j2.properties Async: true
+Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. tez, spark) or using Hive 1.X releases.
+
+hive> create database d1;
+OK
+Time taken: 0.368 seconds
+hive> select *from Sakshicust;
+OK
+Hello	NULL
+Sakshi	NULL
+Hello world	NULL
+	NULL
+Sakshi 56787 	NULL
+Kajal 87690	NULL
+Deven 985745	NULL
+Aniket 9855	NULL
+Sakshi	NULL
+Kajal	NULL
+Deven	NULL
+Aniket	NULL
+Time taken: 1.403 seconds, Fetched: 12 row(s)
+
+hive> delete * from Sakshicust;
+Usage: delete [FILE|JAR|ARCHIVE] <value> [<value>]*
+Query returned non-zero code: 1, cause: null
+hive> delete *from Sakshicust;
+Usage: delete [FILE|JAR|ARCHIVE] <value> [<value>]*
+Query returned non-zero code: 1, cause: null
+hive> drop table Sakshicust;
+OK
+Time taken: 1.758 seconds
+hive> create table Sakshicust(cname string, csal int) row format delimited fields terminated by ',' stored as textfile;
+OK
+Time taken: 0.325 seconds
+hive> load data local inpath '/home/student/student/Desktop/Sakshicust.txt' into table Sakshicust;
+Loading data to table default.Sakshicust
+OK
+Time taken: 0.79 seconds
+hive> select *from Sakshicust;
+OK
+Sakshi	NULL
+Kajal	NULL
+Deven	NULL
+Aniket	NULL
+Time taken: 0.166 seconds, Fetched: 4 row(s)
+hive> load data local inpath '/home/student/student/Desktop/Sakshicust.txt' into table Sakshicust;
+Loading data to table default.Sakshicust
+OK
+Time taken: 0.306 seconds
+
+hive> select *from Sakshicust;
+OK
+Sakshi	NULL
+Kajal	NULL
+Deven	NULL
+Aniket	NULL
+Sakshi 56787 	NULL
+Kajal 87690	NULL
+Deven 985745	NULL
+Aniket 9855	NULL
+Time taken: 0.163 seconds, Fetched: 8 row(s)
+hive> load data local inpath '/home/student/student/Desktop/Sakshicust.txt' into table Sakshicust;
+Loading data to table default.Sakshicust
+OK
+Time taken: 0.304 seconds
+hive> select *from Sakshicust;
+OK
+Sakshi	NULL
+Kajal	NULL
+Deven	NULL
+Aniket	NULL
+Sakshi 56787 	NULL
+Kajal 87690	NULL
+Deven 985745	NULL
+Aniket 9855	NULL
+'Sakshi' 56787 	NULL
+'Kajal' 87690	NULL
+'Deven' 985745	NULL
+'Aniket' 9855	NULL
+Time taken: 0.137 seconds, Fetched: 12 row(s)
+hive> delete *from table Sakshicust;
+Usage: delete [FILE|JAR|ARCHIVE] <value> [<value>]*
+Query returned non-zero code: 1, cause: null
+hive> load data local inpath '/home/student/student/Desktop/Sakshicust.txt' into table Sakshicust;
+Loading data to table default.Sakshicust
+OK
+Time taken: 0.415 seconds
+hive> select *from Sakshicust;
+OK
+Sakshi	NULL
+Kajal	NULL
+Deven	NULL
+Aniket	NULL
+Sakshi 56787 	NULL
+Kajal 87690	NULL
+Deven 985745	NULL
+Aniket 9855	NULL
+'Sakshi' 56787 	NULL
+'Kajal' 87690	NULL
+'Deven' 985745	NULL
+'Aniket' 9855	NULL
+Sakshi	64534
+Kajal	763453
+Deven	764532
+Aniket	2635
+Time taken: 0.133 seconds, Fetched: 16 row(s)
+hive> load data local inpath '/home/student/student/Desktop/Sakshicust.txt' into table Sakshicust;
+Loading data to table default.Sakshicust
+OK
+Time taken: 0.304 seconds
+hive> select *from Sakshicust;
+OK
+Sakshi	NULL
+Kajal	NULL
+Deven	NULL
+Aniket	NULL
+Sakshi 56787 	NULL
+Kajal 87690	NULL
+Deven 985745	NULL
+Aniket 9855	NULL
+'Sakshi' 56787 	NULL
+'Kajal' 87690	NULL
+'Deven' 985745	NULL
+'Aniket' 9855	NULL
+Sakshi	64534
+Kajal	763453
+Deven	764532
+Aniket	2635
+Sakshi	645342
+Kajal	763453
+Deven	764532
+Aniket	263533
+Time taken: 0.141 seconds, Fetched: 20 row(s)
+hive> select * from Sakshicust where csal=645342;
+OK
+Sakshi	645342
+Time taken: 0.852 seconds, Fetched: 1 row(s)
+hive> insert into table Sakshicust values ('shrikant','400000');
+WARNING: Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. tez, spark) or using Hive 1.X releases.
+Query ID = hduser_20230509140600_6cdfd02c-3da8-4495-80e2-91d57cee3455
+Total jobs = 3
+Launching Job 1 out of 3
+Number of reduce tasks is set to 0 since there's no reduce operator
+Starting Job = job_1683618979153_0001, Tracking URL = http://student-HP-Pro-3330-MT:8088/proxy/application_1683618979153_0001/
+Kill Command = /usr/local/hadoop/bin/hadoop job  -kill job_1683618979153_0001
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 0
+2023-05-09 14:06:39,391 Stage-1 map = 0%,  reduce = 0%
+2023-05-09 14:06:56,388 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 1.45 sec
+MapReduce Total cumulative CPU time: 1 seconds 450 msec
+Ended Job = job_1683618979153_0001
+Stage-4 is selected by condition resolver.
+Stage-3 is filtered out by condition resolver.
+Stage-5 is filtered out by condition resolver.
+Moving data to directory hdfs://localhost:9000/user/hive/warehouse/Sakshicust/.hive-staging_hive_2023-05-09_14-06-00_326_140560325774618028-1/-ext-10000
+Loading data to table default.Sakshicust
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1   Cumulative CPU: 1.45 sec   HDFS Read: 4090 HDFS Write: 87 SUCCESS
+Total MapReduce CPU Time Spent: 1 seconds 450 msec
+OK
+Time taken: 60.629 seconds
+hive> select *from Sakshicust;
+OK
+shrikant	400000
+Sakshi	NULL
+Kajal	NULL
+Deven	NULL
+Aniket	NULL
+Sakshi 56787 	NULL
+Kajal 87690	NULL
+Deven 985745	NULL
+Aniket 9855	NULL
+'Sakshi' 56787 	NULL
+'Kajal' 87690	NULL
+'Deven' 985745	NULL
+'Aniket' 9855	NULL
+Sakshi	64534
+Kajal	763453
+Deven	764532
+Aniket	2635
+Sakshi	645342
+Kajal	763453
+Deven	764532
+Aniket	263533
+Time taken: 0.633 seconds, Fetched: 21 row(s)
+hive> ALTER TABLE Sakshicust ADD COLUMNS (dept string);
+OK
+Time taken: 0.659 seconds
+hive> select *from Sakshicust;
+OK
+shrikant	400000	NULL
+Sakshi	NULL	NULL
+Kajal	NULL	NULL
+Deven	NULL	NULL
+Aniket	NULL	NULL
+Sakshi 56787 	NULL	NULL
+Kajal 87690	NULL	NULL
+Deven 985745	NULL	NULL
+Aniket 9855	NULL	NULL
+'Sakshi' 56787 	NULL	NULL
+'Kajal' 87690	NULL	NULL
+'Deven' 985745	NULL	NULL
+'Aniket' 9855	NULL	NULL
+Sakshi	64534	NULL
+Kajal	763453	NULL
+Deven	764532	NULL
+Aniket	2635	NULL
+Sakshi	645342	NULL
+Kajal	763453	NULL
+Deven	764532	NULL
+Aniket	263533	NULL
+Time taken: 0.164 seconds, Fetched: 21 row(s)
+hive> desc Sakshicust;
+OK
+cname               	string              	                    
+csal                	int                 	                    
+dept                	string              	                    
+Time taken: 0.204 seconds, Fetched: 3 row(s)
+hive> CREATE TABLE table_name(
+    > id        int,
+    > name        string
+    > )
+    > CLUSTERED BY (id) INTO 2 BUCKETS STORED AS ORC
+    > ;
+OK
+Time taken: 0.479 seconds
+hive> show tables;
+OK
+cust
+customer
+Sakshicust
+table_name
+values__tmp__table__1
+Time taken: 0.373 seconds, Fetched: 5 row(s)
+hive> desc table_name;
+OK
+id                  	int                 	                    
+name                	string              	                    
+Time taken: 0.043 seconds, Fetched: 2 row(s)
+hive> drop table table_name;
+OK
+Time taken: 0.222 seconds
+hive> show tables;
+OK
+cust
+customer
+Sakshicust
+values__tmp__table__1
+Time taken: 0.022 seconds, Fetched: 4 row(s)
+
+hive> show databases;
+OK
+d1
+db1
+default
+flight
+flightSakshi
+flightraj
+raj
+rajdb
+Time taken: 0.257 seconds, Fetched: 8 row(s)
+hive> select *from flightinfo;
+OK
+Delta	1234	Nashik	Pune	2023-05-12 12:00:00	NULL
+Alfha	5678	Delhi	Mumbai	2023-07-12 10:00:00	NULL
+Delta	1234	Nashik	Pune	2023-05-12 12:00:00	65000
+Alfha	5678	Delhi	Mumbai	2023-07-12 10:00:00	46473
+Time taken: 2.961 seconds, Fetched: 4 row(s)
+hive> select *from schedule;
+OK
+1234	ALPHA
+5678	DELTA
+Time taken: 0.118 seconds, Fetched: 2 row(s)
+hive> desc flightinfo;
+OK
+fname               	string              	                    
+fnumber             	int                 	                    
+dcity               	string              	                    
+decity              	string              	                    
+dtime               	timestamp           	                    
+dept                	string              	                    
+Time taken: 0.069 seconds, Fetched: 6 row(s)
+hive> select fname,fnumber,dcity,decity,dtime,dept from flightinfo f join schedule s on(scheduleid=s.scheduleid);
+Warning: Map Join MAPJOIN[11][bigTable=?] in task 'Stage-3:MAPRED' is a cross product
+WARNING: Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. tez, spark) or using Hive 1.X releases.
+Query ID = hduser_20230512143954_981960f2-9202-465f-bebc-b0b18b6fb923
+Total jobs = 1
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/usr/local/hive/lib/log4j-slf4j-impl-2.4.1.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/usr/local/hadoop/share/hadoop/common/lib/slf4j-log4j12-1.7.25.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
+2023-05-12 14:40:14	Starting to launch local task to process map join;	maximum memory = 477364224
+2023-05-12 14:40:17	Dump the side-table for tag: 1 with group count: 1 into file: file:/tmp/hduser/b57ddf7f-4167-4f77-b1fc-2d77c98b3623/hive_2023-05-12_14-39-54_768_7196772702616076068-1/-local-10004/HashTable-Stage-3/MapJoin-mapfile01--.hashtable
+2023-05-12 14:40:17	Uploaded 1 File to: file:/tmp/hduser/b57ddf7f-4167-4f77-b1fc-2d77c98b3623/hive_2023-05-12_14-39-54_768_7196772702616076068-1/-local-10004/HashTable-Stage-3/MapJoin-mapfile01--.hashtable (280 bytes)
+2023-05-12 14:40:17	End of local task; Time Taken: 2.496 sec.
+Execution completed successfully
+MapredLocal task succeeded
+Launching Job 1 out of 1
+Number of reduce tasks is set to 0 since there's no reduce operator
+Starting Job = job_1683882448858_0001, Tracking URL = http://student-HP-Pro-3330-MT:8088/proxy/application_1683882448858_0001/
+Kill Command = /usr/local/hadoop/bin/hadoop job  -kill job_1683882448858_0001
+Hadoop job information for Stage-3: number of mappers: 1; number of reducers: 0
+2023-05-12 14:40:38,715 Stage-3 map = 0%,  reduce = 0%
+2023-05-12 14:40:54,458 Stage-3 map = 100%,  reduce = 0%, Cumulative CPU 1.29 sec
+MapReduce Total cumulative CPU time: 1 seconds 290 msec
+Ended Job = job_1683882448858_0001
+MapReduce Jobs Launched: 
+Stage-Stage-3: Map: 1   Cumulative CPU: 1.29 sec   HDFS Read: 7032 HDFS Write: 571 SUCCESS
+Total MapReduce CPU Time Spent: 1 seconds 290 msec
+OK
+Delta	1234	Nashik	Pune	2023-05-12 12:00:00	NULL
+Delta	1234	Nashik	Pune	2023-05-12 12:00:00	NULL
+Alfha	5678	Delhi	Mumbai	2023-07-12 10:00:00	NULL
+Alfha	5678	Delhi	Mumbai	2023-07-12 10:00:00	NULL
+Delta	1234	Nashik	Pune	2023-05-12 12:00:00	65000
+Delta	1234	Nashik	Pune	2023-05-12 12:00:00	65000
+Alfha	5678	Delhi	Mumbai	2023-07-12 10:00:00	46473
+Alfha	5678	Delhi	Mumbai	2023-07-12 10:00:00	46473
+Time taken: 62.957 seconds, Fetched: 8 row(s)
+hive> ALTER TABLE schedule ADD COLUMNS(dat timestamp);
+OK
+Time taken: 0.928 seconds
+hive> load data local inpath '/home/student/student/Desktop/schedule.txt' into table schedule;
+Loading data to table default.schedule
+OK
+Time taken: 0.474 seconds
+hive> select * from schedule;
+OK
+1234	ALPHA	NULL
+5678	DELTA	NULL
+1234	ALPHA	2023-05-12 12:00:00
+5678	DELTA	2023-05-13 16:00:00
+Time taken: 0.188 seconds, Fetched: 4 row(s)
+hive> SELECT s.sname,COUNT(*) AS num_flights FROM flightinfo f JOIN schedule s ON scheduleid=s.scheduleid GROUP BY s.sname;
+Warning: Map Join MAPJOIN[17][bigTable=?] in task 'Stage-2:MAPRED' is a cross product
+WARNING: Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. tez, spark) or using Hive 1.X releases.
+Query ID = hduser_20230512145015_ddf94ff1-fe49-4b52-9f7a-2d4a043f6687
+Total jobs = 1
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/usr/local/hive/lib/log4j-slf4j-impl-2.4.1.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/usr/local/hadoop/share/hadoop/common/lib/slf4j-log4j12-1.7.25.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
+2023-05-12 14:50:36	Starting to launch local task to process map join;	maximum memory = 477364224
+2023-05-12 14:50:38	Dump the side-table for tag: 1 with group count: 1 into file: file:/tmp/hduser/b57ddf7f-4167-4f77-b1fc-2d77c98b3623/hive_2023-05-12_14-50-15_868_3160208501322306699-1/-local-10005/HashTable-Stage-2/MapJoin-mapfile11--.hashtable
+2023-05-12 14:50:39	Uploaded 1 File to: file:/tmp/hduser/b57ddf7f-4167-4f77-b1fc-2d77c98b3623/hive_2023-05-12_14-50-15_868_3160208501322306699-1/-local-10005/HashTable-Stage-2/MapJoin-mapfile11--.hashtable (316 bytes)
+2023-05-12 14:50:39	End of local task; Time Taken: 2.939 sec.
+Execution completed successfully
+MapredLocal task succeeded
+Launching Job 1 out of 1
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1683882448858_0002, Tracking URL = http://student-HP-Pro-3330-MT:8088/proxy/application_1683882448858_0002/
+Kill Command = /usr/local/hadoop/bin/hadoop job  -kill job_1683882448858_0002
+Hadoop job information for Stage-2: number of mappers: 1; number of reducers: 1
+2023-05-12 14:50:56,951 Stage-2 map = 0%,  reduce = 0%
+2023-05-12 14:51:10,313 Stage-2 map = 100%,  reduce = 0%, Cumulative CPU 1.58 sec
+2023-05-12 14:51:23,914 Stage-2 map = 100%,  reduce = 100%, Cumulative CPU 2.94 sec
+MapReduce Total cumulative CPU time: 2 seconds 940 msec
+Ended Job = job_1683882448858_0002
+MapReduce Jobs Launched: 
+Stage-Stage-2: Map: 1  Reduce: 1   Cumulative CPU: 2.94 sec   HDFS Read: 11546 HDFS Write: 127 SUCCESS
+Total MapReduce CPU Time Spent: 2 seconds 940 msec
+OK
+ALPHA	8
+DELTA	8
+Time taken: 70.247 seconds, Fetched: 2 row(s)
+hive> 
+
+
+

@@ -1,0 +1,113 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>HTML5 Login Form with Validation Example</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+
+      div {
+        max-width: 300px;
+        margin: 0 auto;
+      }
+
+      h1 {
+        text-align: center;
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+
+      input {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+
+      button {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <h1>Login</h1>
+      <input type="email" id="login_email" placeholder="Email" />
+      <input type="password" id="login_password" placeholder="Password" />
+      <button id="login-button">Login</button>
+
+      <br />
+      <br />
+      <h1>Create Account</h1>
+      <input type="text" id="register_username" placeholder="Username" />
+      <input type="email" id="register_email" placeholder="Email" />
+      <input type="password" id="register_password" placeholder="Password" />
+      <button id="register-button">Create Account</button>
+    </div>
+
+
+    <script type="module">
+  const firebaseConfig = {
+    //write config file here
+    //i removed because to hide it
+  };
+
+
+      import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js';
+      import {
+        getAuth,
+        signInWithEmailAndPassword,
+        createUserWithEmailAndPassword,
+      } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js';
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+
+      const loginButton = document.getElementById('login-button');
+      const register = document.getElementById('register-button');
+
+      // login user
+      loginButton.addEventListener('click', function login() {
+        const email = document.getElementById('login_email').value;
+        const password = document.getElementById('login_password').value;
+
+        signInWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+            window.alert('Login successful');
+          })
+          .catch((error) => {
+            window.alert('Incorrect username and password');
+          });
+      });
+
+      // register user
+      register.addEventListener('click', function register() {
+        const email = document.getElementById('register_email').value;
+        const password = document.getElementById('register_password').value;
+
+        createUserWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+            window.alert('Account created.');
+          })
+          .catch((error) => {
+            window.alert('Email already exists');
+          });
+      });
+    </script>
+  </body>
+</html>
